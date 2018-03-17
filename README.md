@@ -1,4 +1,4 @@
-# Paillier
+# Paillier cryptosystem
 The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.
 
 Homomorphic properties
