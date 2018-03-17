@@ -7,7 +7,13 @@ module.exports = class Paillier {
         this.privateKey = privateKey;
         this.publicKey = this.privateKey.publicKey;
     }
-    static generateKeys(bitLength = 2048, simplevariant) {
+    static PrivateKey(lambda, mu, p, q, publicKey) {
+        return new PaillierPrivateKey(lambda, mu, p, q, publicKey);
+    }
+    static PublicKey(n, g) {
+        return new PaillierPublicKey(n, g);
+    }
+    static generateKeys(bitLength = 2048, simplevariant = false) {
         let p, q, n, phi, n2, g, lambda, mu;
         // if p and q are bitLength/2 long ->  2**(bitLength - 2) <= n < 2**(bitLenght) 
         do {
