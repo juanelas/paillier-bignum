@@ -65,7 +65,7 @@ The **private** (decryption) **key** is **(λ, μ)**.
 Encryption
 ==========
 
-Let m < n be the clear-text message,
+Let m in Z* of n be the clear-text message,
 
 1.  Select random r where in Z* of n
 
