@@ -1,6 +1,38 @@
 # Paillier
 The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.
 
+Homomorphic properties
+======================
+
+A notable feature of the Paillier cryptosystem is its homomorphic properties. Several identities can be described:
+
+Homomorphic addition of plaintexts
+----------------------------------
+
+The product of two ciphertexts will decrypt to the sum of their corresponding plaintexts,
+
+D( E(m1, r1) · E(m2, r2) ) mod n^2 = m1 + m2 mod n.
+
+The product of a ciphertext with a plaintext raising g will decrypt to the sum of the corresponding plaintexts,
+
+D( E(m1, r1) · g^(m2) ) mod n^2 = m1 + m2 mod n
+
+Homomorphic multiplication of plaintexts
+----------------------------------------
+
+An encrypted plaintext raised to the power of another plaintext will decrypt to the product of the two plaintexts,
+
+D( E(m1, r1)^(m2) mod n^2 ) = m1 · m2 mod n,
+
+D( E(m2, r2)^(m1) mod n^2 ) = m1 · m2 mod n.
+
+More generally, an encrypted plaintext raised to a constant k will decrypt to the product of the plaintext and the constant,
+
+D( E(m1, r1)^k mod n^2 ) = k · m1 mod n.
+
+However, given the Paillier encryptions of two messages there is no known way to compute an encryption of the product of these messages without knowing the private key.
+
+
 Key generation
 ==============
 
@@ -9,24 +41,19 @@ Key generation
 2.  Choose two large prime numbers $p$ and $q$ randomly and independently of each other such that $\gcd(pq, (p-1)(q-1))=1$ and
     $n=p \cdot q$ has a key length of $keyLength$.
 
-    As long as we want $n$ to have $keyLength$ bits and the maximum bit length of the product $p$ and $q$ is the sum of their bit lengths,
-    we could, for instance:
+    As long as we want $n$ to have $keyLength$ bits and the maximum bit length of the product $p$ and $q$ is the sum of their bit lengths,    we could, for instance:
 
     1.  Generate a random prime $p$ with a bit length of $\smash{\frac{keyLength}{2}}$.
 
-    2.  Generate a random prime $q$ with a bit length of $\smash{\frac{keyLength}{2}}$ that satisfies: $p \neq q$, $n$
-        has a bit length of $keyLength$, and $\gcd(pq, (p-1)(q-1))=1$.
+    2.  Generate a random prime $q$ with a bit length of $\smash{\frac{keyLength}{2}}$ that satisfies: $p \neq q$, $n$ has a bit length of $keyLength$, and $\gcd(pq, (p-1)(q-1))=1$.
 
 3.  Compute $\lambda=\operatorname{lcm}(p-1,q-1)$ with $\operatorname{lcm}(a,b) = \frac{ab}{\gcd(a,b)}$.
 
 4.  Select generator $g$ where $g \in \mathbb{Z}^{*}_{n^{2}}$. $g$ can be computed as follows (there are other ways):
 
-    -   Generate randoms $\alpha$ and $\beta$ in $\mathbb{Z}^{*}_{n}$
-        (i.e. $0 < \alpha < n$ and $0 < \beta < n$).
+    -   Generate randoms $\alpha$ and $\beta$ in $\mathbb{Z}^{*}_{n}$ (i.e. $0 < \alpha < n$ and $0 < \beta < n$).
 
-    -   Calculate $g$ as:
-
-        $g=\left( \alpha n + 1 \right) \beta^n \mod{n^2}$
+    -   Calculate $g$ as: $g=\left( \alpha n + 1 \right) \beta^n \mod{n^2}$
 
 5.  Compute the following modular multiplicative inverse
 
@@ -56,39 +83,3 @@ Decryption
     $c \in \mathbb{Z}^{*}_{n^{2}}$ (i.e. $0 < c < n^2$)
 
 2.  Compute the plaintext message as:
-
-Homomorphic properties
-======================
-
-A notable feature of the Paillier cryptosystem is its homomorphic properties. As the encryption function is additively homomorphic, several identities can be described:
-
-Homomorphic addition of plaintexts
-----------------------------------
-
-The product of two ciphertexts will decrypt to the sum of their corresponding plaintexts,
-
-D( E(m_1, r_1) * E(m_2, r_2) ) mod n^2 = m_1 + m_2 \bmod n$.
-
-The product of a ciphertext with a plaintext raising $g$ will decrypt to
-the sum of the corresponding plaintexts,
-
-$\operatorname{D}(\operatorname{E}(m_1, r_1)\cdot g^{m_2} \bmod n^2) = m_1 + m_2 \bmod n.$
-
-Homomorphic multiplication of plaintexts
-----------------------------------------
-
-An encrypted plaintext raised to the power of another plaintext will
-decrypt to the product of the two plaintexts,
-
-$\operatorname{D}(\operatorname{E}(m_1, r_1)^{m_2}\bmod n^2) = m_1 m_2 \bmod n$,
-
-$\operatorname{D}(\operatorname{E}(m_2, r_2)^{m_1}\bmod n^2) = m_1 m_2 \bmod n$.
-
-More generally, an encrypted plaintext raised to a constant $k$ will
-decrypt to the product of the plaintext and the constant,
-
-$\operatorname{D}(\operatorname{E}(m_1, r_1)^k\bmod n^2) = k m_1 \bmod n$.
-
-However, given the Paillier encryptions of two messages there is no
-known way to compute an encryption of the product of these messages
-without knowing the private key.
