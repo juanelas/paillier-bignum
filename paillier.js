@@ -7,16 +7,15 @@ module.exports = class Paillier {
         this.privateKey = privateKey;
         this.publicKey = this.privateKey.publicKey;
     }
-    static generateKeys(bitlength = 2048, simplevariant) {
+    static generateKeys(bitLength = 2048, simplevariant) {
         let p, q, n, phi, n2, g, lambda, mu;
-        // if p and q are bitlength/2 long, n is then bitlength long
-        console.log('Generating Paillier keys of', bitlength, 'bits');
+        // if p and q are bitLength/2 long ->  2**(bitLength - 2) <= n < 2**(bitLenght) 
         do {
-            p = bignum.prime(bitlength / 2);
-            q = bignum.prime(bitlength / 2);
+            p = bignum.prime(bitLength / 2);
+            q = bignum.prime(bitLength / 2);
             n = p.mul(q);
             phi = p.sub(1).mul(q.sub(1));
-        } while (q.cmp(p) == 0 || n.bitLength() != bitlength);
+        } while (q.cmp(p) == 0 || n.bitLength() != bitLength);
 
         n2 = n.pow(2);
 
@@ -33,7 +32,7 @@ module.exports = class Paillier {
             mu = L(g.powm(lambda, n2), n).invertm(n);
         }
 
-        const publicKey = new PaillierPublicKey(this.bitlength, n, g);
+        const publicKey = new PaillierPublicKey(this.bitLength, n, g);
         return new Paillier(new PaillierPrivateKey(lambda, mu, p, q, publicKey));
     }
 };
