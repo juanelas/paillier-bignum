@@ -1,0 +1,14 @@
+{
+  "name": "paillier",
+  "version": "0.0.1",
+  "description": "An implementation of the Paillier's cryptosystem relying on bignum",
+  "private": true,
+  "author": "Juanelas",
+  "main": "paillier.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "dependencies": {
+    "bignum": ""
+  }
+}
