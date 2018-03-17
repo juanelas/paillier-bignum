@@ -75,17 +75,23 @@ Let c be the ciphertext to decrypt, where c in Z* of n^2
 ## Usage example
 
 ```javascript
-// import library
-const paillier = require('paillier.js');
+// import paillier and bignum
+const paillier = require('./paillier.js');
+const bignum = require('bignum');
 
 // create keys
-const keys = paillier.generateKeys(2048);
+const {publicKey, privateKey} = paillier.generateKeys(2048);
 
 // encrypt m
-const c = keys.publicKey.encrypt(m);
+const c = publicKey.encrypt(m);
 
 // decrypt c
-const d = keys.privateKey.decrypt(c);
+const d = privateKey.decrypt(c);
+
+// optionally you can create your public/private keys from known parameters
+const publicKey = paillier.publicKey(n, g);
+const privateKey = paillier.privateKey(lambda, mu, p, q, publicKey);
+
 ```
 
 You can see an example testing the additive homomorphic property of the Paillier cryptosystem in `test.js`.
