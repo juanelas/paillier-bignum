@@ -75,6 +75,9 @@ Let c be the ciphertext to decrypt, where c in Z* of n^2
 ## Usage example
 
 ```javascript
+// import library
+const paillier = require('paillier.js');
+
 // create keys
 const keys = paillier.generateKeys(2048);
 
