@@ -44,9 +44,9 @@ However, given the Paillier encryptions of two messages there is no known way to
 
 4. Select generator g where in Z* de n^2. g can be computed as follows (there are other ways):
 
-    - Generate randoms λ and β in Z* of n (i.e. 0<λ<n and 0<β<n).
+    * Generate randoms λ and β in Z* of n (i.e. 0<λ<n and 0<β<n).
 
-    - Compute g = ( λ·n + 1 ) β^n mod n^2
+    * Compute g = ( λ·n + 1 ) β^n mod n^2
 
 5. Compute the following modular multiplicative inverse
 
