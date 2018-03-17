@@ -1,58 +1,54 @@
 # Paillier cryptosystem
+
 The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.
 
-Homomorphic properties
-======================
+## Homomorphic properties
 
-Homomorphic addition of plaintexts
-----------------------------------
+### Homomorphic addition of plaintexts
 
 The product of two ciphertexts will decrypt to the sum of their corresponding plaintexts,
 
-D( E(m1, r1) · E(m2, r2) ) mod n^2 = m1 + m2 mod n.
+**D( E(m1, r1) · E(m2, r2) ) mod n^2 = m1 + m2 mod n**
 
 The product of a ciphertext with a plaintext raising g will decrypt to the sum of the corresponding plaintexts,
 
-D( E(m1, r1) · g^(m2) ) mod n^2 = m1 + m2 mod n
+**D( E(m1, r1) · g^(m2) ) mod n^2 = m1 + m2 mod n**
 
-Homomorphic multiplication of plaintexts
-----------------------------------------
+### Homomorphic multiplication of plaintexts
 
 An encrypted plaintext raised to the power of another plaintext will decrypt to the product of the two plaintexts,
 
-D( E(m1, r1)^(m2) mod n^2 ) = m1 · m2 mod n,
+**D( E(m1, r1)^(m2) mod n^2 ) = m1 · m2 mod n**,
 
-D( E(m2, r2)^(m1) mod n^2 ) = m1 · m2 mod n.
+**D( E(m2, r2)^(m1) mod n^2 ) = m1 · m2 mod n**.
 
 More generally, an encrypted plaintext raised to a constant k will decrypt to the product of the plaintext and the constant,
 
-D( E(m1, r1)^k mod n^2 ) = k · m1 mod n.
+**D( E(m1, r1)^k mod n^2 ) = k · m1 mod n**.
 
 However, given the Paillier encryptions of two messages there is no known way to compute an encryption of the product of these messages without knowing the private key.
 
+## Key generation
 
-Key generation
-==============
+1. Define the bit length of the modulus n, or keyLength in bits.
 
-1.  Define the bit length of the modulus n, or keyLength in bits.
+2. Choose two large prime numbers p and q randomly and independently of each other such that gcd( p·q, (p-1)(q-1) )=1 and n=p·q has a key length of keyLength. For instance:
 
-2.  Choose two large prime numbers p and q randomly and independently of each other such that gcd( p·q, (p-1)(q-1) )=1 and
-    n=p·q has a key length of keyLength. For instance:
+    1. Generate a random prime p with a bit length of keyLength/2.
 
-    1.  Generate a random prime p with a bit length of keyLength/2.
+    2. Generate a random prime q with a bit length of keyLength/2.
 
-    2.  Generate a random prime q with a bit length of keyLength/2 that 
-    satisfies: p != q, n has a bit length of keyLength, gcd(p·q, (p-1)(q-1))=1.
+    3. Repeat until satisfy: p != q, n has a bit length of keyLength, gcd(p·q, (p-1)(q-1))=1.
 
-3.  Compute lambda = lcm(p-1, q-1) with lcm(a,b) = a·b/gcd(a, b).
+3. Compute λ = lcm(p-1, q-1) with lcm(a,b) = a·b/gcd(a, b).
 
-4.  Select generator g where in Z* de n^2. g can be computed as follows (there are other ways):
+4. Select generator g where in Z* de n^2. g can be computed as follows (there are other ways):
 
-    -   Generate randoms λ and β in Z* of n (i.e. 0<λ<n and 0<β<n).
-    
-    -   Compute g = ( λ·n + 1 ) β^n mod n^2
+    - Generate randoms λ and β in Z* of n (i.e. 0<λ<n and 0<β<n).
 
-5.  Compute the following modular multiplicative inverse
+    - Compute g = ( λ·n + 1 ) β^n mod n^2
+
+5. Compute the following modular multiplicative inverse
 
     μ = ( L( g^λ mod n^2 ) )^{-1} mod n
 
@@ -62,18 +58,16 @@ The **public** (encryption) **key** is **(n, g)**.
 
 The **private** (decryption) **key** is **(λ, μ)**.
 
-Encryption
-==========
+## Encryption
 
 Let m in Z* of n be the clear-text message,
 
-1.  Select random r where in Z* of n
+1. Select random r where in Z* of n
 
-2.  Compute ciphertext as: **c = g^m · r^n mod n^2**
+2. Compute ciphertext as: **c = g^m · r^n mod n^2**
 
-Decryption
-==========
+## Decryption
 
 Let c be the ciphertext to decrypt, where c in Z* of n^2
 
-1.  Compute the plaintext message as: **m = L( c^λ mod n^2 ) · μ mod n**
+1. Compute the plaintext message as: **m = L( c^λ mod n^2 ) · μ mod n**
