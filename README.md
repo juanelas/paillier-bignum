@@ -4,29 +4,22 @@ The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, 
 Key generation
 ==============
 
-1.  Define the bit length of the modulus $n$, often called $keyLength$
-    in bits.
+1.  Define the bit length of the modulus $n$, often called $keyLength$ in bits.
 
-2.  Choose two large prime numbers $p$ and $q$ randomly and
-    independently of each other such that $\gcd(pq, (p-1)(q-1))=1$ and
+2.  Choose two large prime numbers $p$ and $q$ randomly and independently of each other such that $\gcd(pq, (p-1)(q-1))=1$ and
     $n=p \cdot q$ has a key length of $keyLength$.
 
-    As long as we want $n$ to have $keyLength$ bits and the maximum bit
-    length of the product $p$ and $q$ is the sum of their bit lengths,
+    As long as we want $n$ to have $keyLength$ bits and the maximum bit length of the product $p$ and $q$ is the sum of their bit lengths,
     we could, for instance:
 
-    1.  Generate a random prime $p$ with a bit length of
-        $\smash{\frac{keyLength}{2}}$.
+    1.  Generate a random prime $p$ with a bit length of $\smash{\frac{keyLength}{2}}$.
 
-    2.  Generate a random prime $q$ with a bit length of
-        $\smash{\frac{keyLength}{2}}$ that satisfies: $p \neq q$, $n$
+    2.  Generate a random prime $q$ with a bit length of $\smash{\frac{keyLength}{2}}$ that satisfies: $p \neq q$, $n$
         has a bit length of $keyLength$, and $\gcd(pq, (p-1)(q-1))=1$.
 
-3.  Compute $\lambda=\operatorname{lcm}(p-1,q-1)$ with
-    $\operatorname{lcm}(a,b) = \frac{ab}{\gcd(a,b)}$.
+3.  Compute $\lambda=\operatorname{lcm}(p-1,q-1)$ with $\operatorname{lcm}(a,b) = \frac{ab}{\gcd(a,b)}$.
 
-4.  Select generator $g$ where $g \in \mathbb{Z}^{*}_{n^{2}}$. $g$ can
-    be computed as follows (there are other ways):
+4.  Select generator $g$ where $g \in \mathbb{Z}^{*}_{n^{2}}$. $g$ can be computed as follows (there are other ways):
 
     -   Generate randoms $\alpha$ and $\beta$ in $\mathbb{Z}^{*}_{n}$
         (i.e. $0 < \alpha < n$ and $0 < \beta < n$).
@@ -41,8 +34,7 @@ Key generation
 
     where $\operatorname{L}(u)=\frac{u-1}{n}$
 
-    This multiplicative inverse exists if and only if a valid generator
-    $g$ was selected in the previous step.
+    This multiplicative inverse exists if and only if a valid generator $g$ was selected in the previous step.
 
 The **public** (encryption) **key** is $(n,g)$.
 
@@ -51,15 +43,13 @@ The **private** (decryption) **key** is $(\lambda,\mu)$.
 Encryption
 ==========
 
-1.  Let $m$ be a message to be encrypted where $m \in \mathbb{Z}_{n}$
-    (i.e. $0 \le m < n$)
+1.  Let $m$ be a message to be encrypted where $m \in \mathbb{Z}_{n}$ (i.e. $0 \le m < n$)
 
-2.  Select random $r$ where $r \in \mathbb{Z}^{*}_{n}$ (i.e.
-    $0 < r < n$)
+2.  Select random $r$ where $r \in \mathbb{Z}^{*}_{n}$ (i.e. $0 < r < n$)
 
 3.  Compute ciphertext as:
 
-Decryption {#decryption .unnumbered}
+Decryption
 ==========
 
 1.  Let $c$ be the ciphertext to decrypt, where
@@ -67,27 +57,24 @@ Decryption {#decryption .unnumbered}
 
 2.  Compute the plaintext message as:
 
-Homomorphic properties {#homomorphic-properties .unnumbered}
+Homomorphic properties
 ======================
 
-A notable feature of the Paillier cryptosystem is its homomorphic
-properties. As the encryption function is additively homomorphic,
-several identities can be described:
+A notable feature of the Paillier cryptosystem is its homomorphic properties. As the encryption function is additively homomorphic, several identities can be described:
 
-Homomorphic addition of plaintexts {#homomorphic-addition-of-plaintexts .unnumbered}
+Homomorphic addition of plaintexts
 ----------------------------------
 
-The product of two ciphertexts will decrypt to the sum of their
-corresponding plaintexts,
+The product of two ciphertexts will decrypt to the sum of their corresponding plaintexts,
 
-$\operatorname{D}(\operatorname{E}(m_1, r_1) \cdot \operatorname{E}(m_2, r_2) \bmod n^2) = m_1 + m_2 \bmod n$.
+D( E(m_1, r_1) * E(m_2, r_2) ) mod n^2 = m_1 + m_2 \bmod n$.
 
 The product of a ciphertext with a plaintext raising $g$ will decrypt to
 the sum of the corresponding plaintexts,
 
 $\operatorname{D}(\operatorname{E}(m_1, r_1)\cdot g^{m_2} \bmod n^2) = m_1 + m_2 \bmod n.$
 
-Homomorphic multiplication of plaintexts {#homomorphic-multiplication-of-plaintexts .unnumbered}
+Homomorphic multiplication of plaintexts
 ----------------------------------------
 
 An encrypted plaintext raised to the power of another plaintext will
