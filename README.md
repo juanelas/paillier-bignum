@@ -79,8 +79,8 @@ Let c be the ciphertext to decrypt, where c in Z* of n^2
 const paillier = require('./paillier.js');
 const bignum = require('bignum');
 
-// create keys
-const {publicKey, privateKey} = paillier.generateKeys(2048);
+// create random keys
+const {publicKey, privateKey} = paillier.generateRandomKeys(2048);
 
 // encrypt m
 const c = publicKey.encrypt(m);
