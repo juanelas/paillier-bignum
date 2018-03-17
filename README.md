@@ -1,7 +1,7 @@
 # Paillier
 The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.
 
-Key generation {#key-generation .unnumbered}
+Key generation
 ==============
 
 1.  Define the bit length of the modulus $n$, often called $keyLength$
@@ -48,7 +48,7 @@ The **public** (encryption) **key** is $(n,g)$.
 
 The **private** (decryption) **key** is $(\lambda,\mu)$.
 
-Encryption {#encryption .unnumbered}
+Encryption
 ==========
 
 1.  Let $m$ be a message to be encrypted where $m \in \mathbb{Z}_{n}$
