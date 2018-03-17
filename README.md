@@ -71,3 +71,18 @@ Let m in Z* of n be the clear-text message,
 Let c be the ciphertext to decrypt, where c in Z* of n^2
 
 1. Compute the plaintext message as: **m = L( c^λ mod n^2 ) · μ mod n**
+
+## Usage example
+
+```javascript
+// create keys
+const keys = paillier.generateKeys(2048);
+
+// encrypt m
+const c = keys.publicKey.encrypt(m);
+
+// decrypt c
+const d = keys.privateKey.decrypt(c);
+```
+
+You can see an example testing the additive homomorphic property of the Paillier cryptosystem in `test.js`.
