@@ -3,7 +3,7 @@
 const paillier = require('./paillier');
 const bignum = require('bignum');
 
-const keys = paillier.generateKeys(1024); // Change to at least 2048 bits in production state
+const keys = paillier.generateKeys(2048); // Change to at least 2048 bits in production state
 
 console.log('modulus of', keys.publicKey.n.bitLength(), 'bits');
 

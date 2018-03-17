@@ -32,7 +32,7 @@ module.exports = class Paillier {
             mu = L(g.powm(lambda, n2), n).invertm(n);
         }
 
-        const publicKey = new PaillierPublicKey(this.bitLength, n, g);
+        const publicKey = new PaillierPublicKey(n, g);
         return new Paillier(new PaillierPrivateKey(lambda, mu, p, q, publicKey));
     }
 };
@@ -51,7 +51,7 @@ class PaillierPrivateKey {
 }
 
 class PaillierPublicKey {
-    constructor(bits, n, g) {
+    constructor(n, g) {
         this.n = n;
         this._n2 = n.pow(2); // cache n^2
         this.g = g;
