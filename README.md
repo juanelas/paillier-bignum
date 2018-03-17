@@ -48,19 +48,19 @@ Key generation
 
 4.  Select generator g where in Z* de n^2. g can be computed as follows (there are other ways):
 
-    -   Generate randoms alpha and beta in Z* of n (i.e. 0<alpha<n and 0<beta<n).
+    -   Generate randoms λ and β in Z* of n (i.e. 0<λ<n and 0<β<n).
     
-    -   Compute g = ( alpha·n + 1 ) beta^n mod n^2
+    -   Compute g = ( λ·n + 1 ) β^n mod n^2
 
 5.  Compute the following modular multiplicative inverse
 
-    mu = ( L( g^(lambda) mod n^2 ) )^{-1} mod n
+    μ = ( L( g^λ mod n^2 ) )^{-1} mod n
 
-    where L(u) = (u-1)/n
+    where L(x) = (x-1)/n
 
 The **public** (encryption) **key** is **(n, g)**.
 
-The **private** (decryption) **key** is **(lambda, μ)**.
+The **private** (decryption) **key** is **(λ, μ)**.
 
 Encryption
 ==========
