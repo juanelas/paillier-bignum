@@ -89,8 +89,8 @@ const c = publicKey.encrypt(m);
 const d = privateKey.decrypt(c);
 
 // optionally you can create your public/private keys from known parameters
-const publicKey = paillier.publicKey(n, g);
-const privateKey = paillier.privateKey(lambda, mu, p, q, publicKey);
+const publicKey = new paillier.PublicKey(n, g);
+const privateKey = new paillier.PrivateKey(lambda, mu, p, q, publicKey);
 
 ```
 
