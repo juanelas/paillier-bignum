@@ -1,14 +1,15 @@
 {
-  "name": "paillier",
-  "version": "0.0.1",
-  "description": "An implementation of the Paillier's cryptosystem relying on bignum",
-  "private": true,
-  "author": "Juanelas",
+  "name": "paillier-bignum",
+  "version": "1.0.0",
+  "description": "An implementation of the Paillier cryptosystem relying on bignum",
+  "repository": "github:juanelas/paillier-bignum",
+  "author": "juanelas (https://github.com/juanelas)",
+  "license": "MIT",
   "main": "paillier.js",
   "scripts": {
     "test": "node test"
   },
   "dependencies": {
-    "bignum": ""
+    "bignum": "^0.12.5"
   }
 }
