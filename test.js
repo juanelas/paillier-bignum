@@ -31,8 +31,8 @@ const sum = privateKey.decrypt(encryptedSum);
 console.log('Decryption of c1*c2:', sum.toString());
 console.log('num1+num2=', num1 + num2, '\n\n');
 
-const pubKey = paillier.publicKey(publicKey.n, publicKey.g);
-const privKey = paillier.privateKey(privateKey.lambda, privateKey.mu, privateKey.p, privateKey.q, pubKey);
+const pubKey = new paillier.PublicKey(publicKey.n, publicKey.g);
+const privKey = new paillier.PrivateKey(privateKey.lambda, privateKey.mu, privateKey.p, privateKey.q, pubKey);
 
 const num3 = bignum(4);
 const c3 = pubKey.encrypt(num3);
