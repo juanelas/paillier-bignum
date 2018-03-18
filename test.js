@@ -12,9 +12,9 @@ console.log('\n\nTesting additive homomorphism\n');
 const num1 = 10;
 const num2 = 4;
 let bn1 = bignum(num1).mod(publicKey.n);
-while (bn1.lt(0)) bn1 = bn1.add(publicKey.n);  // bug in bignum? mod of negative keeps being negative. This should fix it
+while (bn1.lt(0)) bn1 = bn1.add(publicKey.n);  // bug in bignum? mod(n) of negative number returns .abs().mod(n). This should fix it
 let bn2 = bignum(num2).mod(publicKey.n);
-while (bn2.lt(0)) bn2 = bn2.add(publicKey.n);  // bug in bignum? mod of negative keeps being negative. This should fix it
+while (bn2.lt(0)) bn2 = bn2.add(publicKey.n);  // bug in bignum? mod(n) of negative number returns .abs().mod(n). This should fix it
 
 const c1 = publicKey.encrypt(bn1);
 const c2 = publicKey.encrypt(bn2);
