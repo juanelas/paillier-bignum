@@ -1,4 +1,6 @@
-# Paillier cryptosystem
+# A node.js implementation of the Paillier cryptosystem
+
+This is a node.js implementation relying on the [node-bignum](https://github.com/justmoon/node-bignum) library by Stephan Thomas.
 
 The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.
 
@@ -82,15 +84,15 @@ const bignum = require('bignum');
 // create random keys
 const {publicKey, privateKey} = paillier.generateRandomKeys(2048);
 
+// optionally, you can create your public/private keys from known parameters
+const publicKey = new paillier.PublicKey(n, g);
+const privateKey = new paillier.PrivateKey(lambda, mu, p, q, publicKey);
+
 // encrypt m
 const c = publicKey.encrypt(m);
 
 // decrypt c
 const d = privateKey.decrypt(c);
-
-// optionally you can create your public/private keys from known parameters
-const publicKey = new paillier.PublicKey(n, g);
-const privateKey = new paillier.PrivateKey(lambda, mu, p, q, publicKey);
 
 // homomorphic addition of two chipertexts (encrypted numbers)
 const c1 = public.encrypt(m1);
