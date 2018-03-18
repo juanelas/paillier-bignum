@@ -8,23 +8,23 @@ The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, 
 
 The product of two ciphertexts will decrypt to the sum of their corresponding plaintexts,
 
-**D( E(m1, r1) · E(m2, r2) ) mod n^2 = m1 + m2 mod n**
+**D( E(m1) · E(m2) ) mod n^2 = m1 + m2 mod n**
 
 The product of a ciphertext with a plaintext raising g will decrypt to the sum of the corresponding plaintexts,
 
-**D( E(m1, r1) · g^(m2) ) mod n^2 = m1 + m2 mod n**
+**D( E(m1) · g^(m2) ) mod n^2 = m1 + m2 mod n**
 
 ### Homomorphic multiplication of plaintexts
 
 An encrypted plaintext raised to the power of another plaintext will decrypt to the product of the two plaintexts,
 
-**D( E(m1, r1)^(m2) mod n^2 ) = m1 · m2 mod n**,
+**D( E(m1)^(m2) mod n^2 ) = m1 · m2 mod n**,
 
-**D( E(m2, r2)^(m1) mod n^2 ) = m1 · m2 mod n**.
+**D( E(m2)^(m1) mod n^2 ) = m1 · m2 mod n**.
 
 More generally, an encrypted plaintext raised to a constant k will decrypt to the product of the plaintext and the constant,
 
-**D( E(m1, r1)^k mod n^2 ) = k · m1 mod n**.
+**D( E(m1)^k mod n^2 ) = k · m1 mod n**.
 
 However, given the Paillier encryptions of two messages there is no known way to compute an encryption of the product of these messages without knowing the private key.
 
@@ -72,7 +72,7 @@ Let c be the ciphertext to decrypt, where c in Z* of n^2
 
 1. Compute the plaintext message as: **m = L( c^λ mod n^2 ) · μ mod n**
 
-## Usage example
+## Usage
 
 ```javascript
 // import paillier and bignum
@@ -92,6 +92,16 @@ const d = privateKey.decrypt(c);
 const publicKey = new paillier.PublicKey(n, g);
 const privateKey = new paillier.PrivateKey(lambda, mu, p, q, publicKey);
 
+// homomorphic addition of two chipertexts (encrypted numbers)
+const c1 = public.encrypt(m1);
+const c2 = public.encrypt(m2);
+const encryptedSum = publicKey.addition(c1, c2);
+const sum = private.decrypt(encryptedSum); // m1 + m2
+
+// multiplication by k
+const c1 = public.encrypt(m1);
+const encryptedMul = publicKey.multiply(c1, k);
+const mul = privateKey.decrypt(encryptedMul); // k · m1
 ```
 
-You can see an example testing the additive homomorphic property of the Paillier cryptosystem in `test.js`.
+See usage examples in `test.js`.

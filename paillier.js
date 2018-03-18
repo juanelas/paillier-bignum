@@ -46,6 +46,12 @@ const paillier = (function () {
             } while (r.le(1));
             return this.g.powm(m, this._n2).mul(r.powm(this.n, this._n2)).mod(this._n2);
         }
+        addition(...numbers) { // numbers must be ciphertexts
+            return numbers.reduce((sum, next) => sum.mul(next).mod(this._n2));
+        }
+        multiply(c, k) { // c is ciphertext. m is a number in plain text
+            return bignum(c).powm(k, this._n2);
+        }
     };
 
     const PaillierPrivateKey = class PaillierPrivateKey {
