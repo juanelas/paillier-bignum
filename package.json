@@ -5,7 +5,7 @@
   "repository": "github:juanelas/paillier-bignum",
   "author": "juanelas (https://github.com/juanelas)",
   "license": "MIT",
-  "main": "paillier.js",
+  "main": "./paillier.js",
   "scripts": {
     "test": "node test"
   },
