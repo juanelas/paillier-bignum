@@ -9,8 +9,9 @@ const generateRandomKeys = function (bitLength = 2048, simplevariant = false) {
         p = bignum.prime(bitLength / 2);
         q = bignum.prime(bitLength / 2);
         n = p.mul(q);
-        phi = p.sub(1).mul(q.sub(1));
     } while (q.cmp(p) == 0 || n.bitLength() != bitLength);
+
+    phi = p.sub(1).mul(q.sub(1));
 
     n2 = n.pow(2);
 
@@ -34,19 +35,22 @@ const generateRandomKeys = function (bitLength = 2048, simplevariant = false) {
 
 const PaillierPublicKey = class PaillierPublicKey {
     constructor(n, g) {
-        this.n = n;
+        this.n = bignum(n);
         this._n2 = n.pow(2); // cache n^2
-        this.g = g;
+        this.g = bignum(g);
+    }
+    get bitLength() {
+        return this.n.bitLength();
     }
     encrypt(m) {
         let r;
         do {
             r = bignum.rand(this.n);
         } while (r.le(1));
-        return this.g.powm(m, this._n2).mul(r.powm(this.n, this._n2)).mod(this._n2);
+        return this.g.powm(bignum(m), this._n2).mul(r.powm(this.n, this._n2)).mod(this._n2);
     }
     addition(...numbers) { // numbers must be ciphertexts
-        return numbers.reduce((sum, next) => sum.mul(next).mod(this._n2));
+        return numbers.reduce((sum, next) => sum.mul(bignum(next)).mod(this._n2), bignum(1));
     }
     multiply(c, k) { // c is ciphertext. m is a number in plain text
         return bignum(c).powm(k, this._n2);
@@ -55,14 +59,20 @@ const PaillierPublicKey = class PaillierPublicKey {
 
 const PaillierPrivateKey = class PaillierPrivateKey {
     constructor(lambda, mu, p, q, publicKey) {
-        this.lambda = lambda;
-        this.mu = mu;
-        this._p = p;
-        this._q = q;
+        this.lambda = bignum(lambda);
+        this.mu = bignum(mu);
+        this._p = bignum(p);
+        this._q = bignum(q);
         this.publicKey = publicKey;
     }
+    get bitLength() {
+        return this.publicKey.n.bitLength();
+    }
+    get n() {
+        return this.publicKey.n;
+    }
     decrypt(c) {
-        return L(c.powm(this.lambda, this.publicKey._n2), this.publicKey.n).mul(this.mu).mod(this.publicKey.n);
+        return L(bignum(c).powm(this.lambda, this.publicKey._n2), this.publicKey.n).mul(this.mu).mod(this.publicKey.n);
     }
 };
 

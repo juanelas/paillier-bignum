@@ -76,10 +76,11 @@ Let c be the ciphertext to decrypt, where c in Z* of n^2
 
 ## Usage
 
+Every input number should be a string in base 10, an integer, or a BigNum. All the output numbers are instances of BigNum.
+
 ```javascript
 // import paillier and bignum
 const paillier = require('./paillier.js');
-const bignum = require('bignum');
 
 // create random keys
 const {publicKey, privateKey} = paillier.generateRandomKeys(2048);
@@ -106,4 +107,4 @@ const encryptedMul = publicKey.multiply(c1, k);
 const mul = privateKey.decrypt(encryptedMul); // k · m1
 ```
 
-See usage examples in `test.js`.
+See usage examples in `example.js`.

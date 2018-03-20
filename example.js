@@ -4,7 +4,7 @@ const bignum = require('bignum');
 
 let { publicKey, privateKey } = paillier.generateRandomKeys(512); // Change to at least 2048 bits in production state
 
-console.log('Modulus n has', publicKey.n.bitLength(), 'bits');
+console.log('Modulus n has', publicKey.bitLength, 'bits');
 
 console.log('\n\nTesting additive homomorphism\n');
 
@@ -24,12 +24,12 @@ console.log('c1:', c1.toString(16), '\n');
 console.log('num2:', num2.toString());
 console.log('c2:', c2.toString(16), '\n');
 
-const encryptedSum = publicKey.addition(c1, c2);
-console.log('E(m1 + m2):', encryptedSum.toString(16), '\n');
+const encryptedSum = publicKey.addition(c1, c2, c2);
+console.log('E(m1 + m2 + m2):', encryptedSum.toString(16), '\n');
 
 const sum = privateKey.decrypt(encryptedSum);
 console.log('Decryption:', sum.toString());
-console.log(`Expecting ${num1} + ${num2} mod n :`, bn1.add(bn2).mod(publicKey.n).toString());
+console.log(`Expecting ${num1} + ${num2} + ${num2} mod n :`, bn1.add(bn2).add(bn2).mod(publicKey.n).toString());
 
 console.log('\n\nTesting multiplication\n');
 
