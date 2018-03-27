@@ -64,7 +64,7 @@ The **private** (decryption) **key** is **(λ, μ)**.
 
 Let m in Z* of n be the clear-text message,
 
-1. Select random r where in Z* of n
+1. Select random r in Z* of n
 
 2. Compute ciphertext as: **c = g^m · r^n mod n^2**
 
