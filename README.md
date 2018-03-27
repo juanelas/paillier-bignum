@@ -40,7 +40,7 @@ However, given the Paillier encryptions of two messages there is no known way to
 
     2. Generate a random prime q with a bit length of keyLength/2.
 
-    3. Repeat until satisfy: p != q, n has a bit length of keyLength, gcd(p·q, (p-1)(q-1))=1.
+    3. Repeat until satisfy: p != q and n with a bit length of keyLength.
 
 3. Compute λ = lcm(p-1, q-1) with lcm(a,b) = a·b/gcd(a, b).
 
