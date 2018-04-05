@@ -16,7 +16,7 @@ The product of a ciphertext with a plaintext raising g will decrypt to the sum o
 
 **D( E(m1) · g^(m2) ) mod n^2 = m1 + m2 mod n**
 
-### Homomorphic multiplication of plaintexts
+### (pseudo-)homomorphic multiplication of plaintexts
 
 An encrypted plaintext raised to the power of another plaintext will decrypt to the product of the two plaintexts,
 
