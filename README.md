@@ -90,21 +90,21 @@ const publicKey = new paillier.PublicKey(n, g);
 const privateKey = new paillier.PrivateKey(lambda, mu, p, q, publicKey);
 
 // encrypt m
-const c = publicKey.encrypt(m);
+let c = publicKey.encrypt(m);
 
 // decrypt c
-const d = privateKey.decrypt(c);
+let d = privateKey.decrypt(c);
 
 // homomorphic addition of two chipertexts (encrypted numbers)
-const c1 = public.encrypt(m1);
-const c2 = public.encrypt(m2);
-const encryptedSum = publicKey.addition(c1, c2);
-const sum = private.decrypt(encryptedSum); // m1 + m2
+let c1 = public.encrypt(m1);
+let c2 = public.encrypt(m2);
+let encryptedSum = publicKey.addition(c1, c2);
+let sum = private.decrypt(encryptedSum); // m1 + m2
 
 // multiplication by k
-const c1 = public.encrypt(m1);
-const encryptedMul = publicKey.multiply(c1, k);
-const mul = privateKey.decrypt(encryptedMul); // k · m1
+let c1 = public.encrypt(m1);
+let encryptedMul = publicKey.multiply(c1, k);
+let mul = privateKey.decrypt(encryptedMul); // k · m1
 ```
 
 See usage examples in `example.js`.
