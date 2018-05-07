@@ -47,7 +47,7 @@ ciphertexts.forEach(function (item, i) {
     });
 });
 
-describe('Testing encryption decryption', function () {
+describe('Testing correctness (encryption-decryption)', function () {
     const totalTests = lengths.reduce((sum, next) => sum + next);
     describe(`For ${totalTests} random r in (1,n), encrypt r with publicKey and then decrypt with privateKey: D( E(r) )`, function () {
         let testPassed = true;
