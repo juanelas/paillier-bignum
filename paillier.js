@@ -36,7 +36,7 @@ const generateRandomKeys = function (bitLength = 2048, simplevariant = false) {
 const PaillierPublicKey = class PaillierPublicKey {
     constructor(n, g) {
         this.n = bignum(n);
-        this._n2 = n.pow(2); // cache n^2
+        this._n2 = this.n.pow(2); // cache n^2
         this.g = bignum(g);
     }
     get bitLength() {
