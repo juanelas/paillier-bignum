@@ -1,6 +1,6 @@
 # A node.js implementation of the Paillier cryptosystem
 
-This is a node.js implementation relying on the [node-bignum](https://github.com/justmoon/node-bignum) library by Stephan Thomas. Bignum is an arbitrary precision integral arithmetic for Node.js using OpenSSL. For a pure javascript implementation (although less efficient)  of the Paillier Cryptosystme, please visit [paillier-js](https://github.com/juanelas/paillier-js).
+This is a node.js implementation relying on the [node-bignum](https://github.com/justmoon/node-bignum) library by Stephan Thomas. Bignum is an arbitrary precision integral arithmetic for Node.js using OpenSSL. For a pure javascript implementation (although less efficient)  of the Paillier Cryptosystem, please visit [paillier-js](https://github.com/juanelas/paillier-js).
 
 The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.
 
