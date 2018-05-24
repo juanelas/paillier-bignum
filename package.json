@@ -2,18 +2,33 @@
   "name": "paillier-bignum",
   "version": "1.0.0",
   "description": "An implementation of the Paillier cryptosystem relying on bignum",
-  "repository": "github:juanelas/paillier-bignum",
-  "author": "juanelas (https://github.com/juanelas)",
+  "keywords": [
+    "paillier",
+    "homomorphic",
+    "crypto",
+    "cryptosystem"
+  ],
+  "homepage": "https://github.com/juanelas/paillier-bignum#readme",
+  "bugs": "https://github.com/juanelas/paillier-bignum/issues",
   "license": "MIT",
+  "author": {
+    "name": "Juan Hernández Serrano",
+    "email": "jserrano@entel.upc.edu",
+    "url": "https://github.com/juanelas"
+  },
+  "repository": "github:juanelas/paillier-bignum",
   "main": "./paillier.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "npx mocha"
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
   },
   "dependencies": {
-    "bignum": "^0.12.5",
-    "chai": "^4.1.2"
+    "bignum": "^0.12.5"
   }
 }
