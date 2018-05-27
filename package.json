@@ -1,6 +1,6 @@
 {
   "name": "paillier-bignum",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An implementation of the Paillier cryptosystem relying on bignum",
   "keywords": [
     "paillier",
