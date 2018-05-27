@@ -79,8 +79,8 @@ Let c be the ciphertext to decrypt, where c in Z* of n^2
 Every input number should be a string in base 10, an integer, or a BigNum. All the output numbers are instances of BigNum.
 
 ```javascript
-// import paillier and bignum
-const paillier = require('./paillier.js');
+// import paillier
+const paillier = require('paillier.js');
 
 // create random keys
 const {publicKey, privateKey} = paillier.generateRandomKeys(2048);
@@ -96,13 +96,13 @@ let c = publicKey.encrypt(m);
 let d = privateKey.decrypt(c);
 
 // homomorphic addition of two chipertexts (encrypted numbers)
-let c1 = public.encrypt(m1);
-let c2 = public.encrypt(m2);
+let c1 = publicKey.encrypt(m1);
+let c2 = publicKey.encrypt(m2);
 let encryptedSum = publicKey.addition(c1, c2);
-let sum = private.decrypt(encryptedSum); // m1 + m2
+let sum = privateKey.decrypt(encryptedSum); // m1 + m2
 
 // multiplication by k
-let c1 = public.encrypt(m1);
+let c1 = publicKey.encrypt(m1);
 let encryptedMul = publicKey.multiply(c1, k);
 let mul = privateKey.decrypt(encryptedMul); // k · m1
 ```
