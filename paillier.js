@@ -49,10 +49,10 @@ const PaillierPublicKey = class PaillierPublicKey {
         } while (r.le(1));
         return this.g.powm(bignum(m), this._n2).mul(r.powm(this.n, this._n2)).mod(this._n2);
     }
-    addition(...numbers) { // numbers must be ciphertexts
-        return numbers.reduce((sum, next) => sum.mul(bignum(next)).mod(this._n2), bignum(1));
+    addition(...ciphertexts) { // ciphertexts of numbers
+        return ciphertexts.reduce((sum, next) => sum.mul(bignum(next)).mod(this._n2), bignum(1));
     }
-    multiply(c, k) { // c is ciphertext. m is a number in plain text
+    multiply(c, k) { // c is ciphertext. k is a number
         return bignum(c).powm(k, this._n2);
     }
 };
