@@ -114,3 +114,194 @@ let mul = privateKey.decrypt(encryptedMul); // k · m1
 ```
 
 See usage examples in [example.js](example.js).
+
+## Classes
+
+<dl>
+<dt><a href="#PaillierPublicKey">PaillierPublicKey</a></dt>
+<dd><p>Class for a Paillier public key</p>
+</dd>
+<dt><a href="#PaillierPrivateKey">PaillierPrivateKey</a></dt>
+<dd><p>Class for Paillier private keys.</p>
+</dd>
+</dl>
+
+## Functions
+
+<dl>
+<dt><a href="#generateRandomKeys">generateRandomKeys(bitLength, simplevariant)</a> ⇒ <code><a href="#KeyPair">KeyPair</a></code></dt>
+<dd><p>Generates a pair private, public key for the Paillier cryptosystem in synchronous mode</p>
+</dd>
+<dt><a href="#generateRandomKeysAsync">generateRandomKeysAsync(bitLength, simplevariant)</a> ⇒ <code>Promise</code></dt>
+<dd><p>Generates a pair private, public key for the Paillier cryptosystem in asynchronous mode</p>
+</dd>
+</dl>
+
+## Typedefs
+
+<dl>
+<dt><a href="#KeyPair">KeyPair</a> : <code>Object</code></dt>
+<dd></dd>
+</dl>
+
+<a name="PaillierPublicKey"></a>
+
+## PaillierPublicKey
+Class for a Paillier public key
+
+**Kind**: global class  
+
+* [PaillierPublicKey](#PaillierPublicKey)
+    * [new PaillierPublicKey(n, g)](#new_PaillierPublicKey_new)
+    * [.bitLength](#PaillierPublicKey+bitLength) ⇒ <code>number</code>
+    * [.encrypt(m)](#PaillierPublicKey+encrypt) ⇒ <code>bignum</code>
+    * [.addition(...ciphertexts)](#PaillierPublicKey+addition) ⇒ <code>bignum</code>
+    * [.multiply(c, k)](#PaillierPublicKey+multiply) ⇒ <code>bignum</code>
+
+<a name="new_PaillierPublicKey_new"></a>
+
+### new PaillierPublicKey(n, g)
+Creates an instance of class PaillierPublicKey
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| n | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | the public modulo |
+| g | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | the public generator |
+
+<a name="PaillierPublicKey+bitLength"></a>
+
+### paillierPublicKey.bitLength ⇒ <code>number</code>
+Get the bit length of the public modulo
+
+**Kind**: instance property of [<code>PaillierPublicKey</code>](#PaillierPublicKey)  
+**Returns**: <code>number</code> - - bit length of the public modulo  
+<a name="PaillierPublicKey+encrypt"></a>
+
+### paillierPublicKey.encrypt(m) ⇒ <code>bignum</code>
+Paillier public-key encryption
+
+**Kind**: instance method of [<code>PaillierPublicKey</code>](#PaillierPublicKey)  
+**Returns**: <code>bignum</code> - - the encryption of m with this public key  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| m | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | a cleartext number |
+
+<a name="PaillierPublicKey+addition"></a>
+
+### paillierPublicKey.addition(...ciphertexts) ⇒ <code>bignum</code>
+Homomorphic addition
+
+**Kind**: instance method of [<code>PaillierPublicKey</code>](#PaillierPublicKey)  
+**Returns**: <code>bignum</code> - - the encryption of (m_1 + ... + m_2) with this public key  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...ciphertexts | <code>bignums</code> | 2 or more (big) numbers (m_1,..., m_n) encrypted with this public key |
+
+<a name="PaillierPublicKey+multiply"></a>
+
+### paillierPublicKey.multiply(c, k) ⇒ <code>bignum</code>
+Pseudo-homomorphic paillier multiplication
+
+**Kind**: instance method of [<code>PaillierPublicKey</code>](#PaillierPublicKey)  
+**Returns**: <code>bignum</code> - - the ecnryption of k·m with this public key  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| c | <code>bignum</code> | a number m encrypted with this public key |
+| k | <code>number</code> | a scalar |
+
+<a name="PaillierPrivateKey"></a>
+
+## PaillierPrivateKey
+Class for Paillier private keys.
+
+**Kind**: global class  
+
+* [PaillierPrivateKey](#PaillierPrivateKey)
+    * [new PaillierPrivateKey(lambda, mu, p, q, publicKey)](#new_PaillierPrivateKey_new)
+    * [.bitLength](#PaillierPrivateKey+bitLength) ⇒ <code>number</code>
+    * [.n](#PaillierPrivateKey+n) ⇒ <code>bignum</code>
+    * [.decrypt(c)](#PaillierPrivateKey+decrypt) ⇒ <code>bignum</code>
+
+<a name="new_PaillierPrivateKey_new"></a>
+
+### new PaillierPrivateKey(lambda, mu, p, q, publicKey)
+Creates an instance of class PaillierPrivateKey
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| lambda | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> |  |
+| mu | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> |  |
+| p | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | a big prime |
+| q | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | a big prime |
+| publicKey | [<code>PaillierPublicKey</code>](#PaillierPublicKey) |  |
+
+<a name="PaillierPrivateKey+bitLength"></a>
+
+### paillierPrivateKey.bitLength ⇒ <code>number</code>
+Get the bit length of the public modulo
+
+**Kind**: instance property of [<code>PaillierPrivateKey</code>](#PaillierPrivateKey)  
+**Returns**: <code>number</code> - - bit length of the public modulo  
+<a name="PaillierPrivateKey+n"></a>
+
+### paillierPrivateKey.n ⇒ <code>bignum</code>
+Get the public modulo n=p·q
+
+**Kind**: instance property of [<code>PaillierPrivateKey</code>](#PaillierPrivateKey)  
+**Returns**: <code>bignum</code> - - the public modulo n=p·q  
+<a name="PaillierPrivateKey+decrypt"></a>
+
+### paillierPrivateKey.decrypt(c) ⇒ <code>bignum</code>
+Paillier private-key decryption
+
+**Kind**: instance method of [<code>PaillierPrivateKey</code>](#PaillierPrivateKey)  
+**Returns**: <code>bignum</code> - - the decryption of c with this private key  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| c | <code>bignum</code> \| <code>stringBase10</code> | a (big) number encrypted with the public key |
+
+<a name="generateRandomKeys"></a>
+
+## generateRandomKeys(bitLength, simplevariant) ⇒ [<code>KeyPair</code>](#KeyPair)
+Generates a pair private, public key for the Paillier cryptosystem in synchronous mode
+
+**Kind**: global function  
+**Returns**: [<code>KeyPair</code>](#KeyPair) - - a pair of public, private keys  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| bitLength | <code>number</code> | <code>4096</code> | the bit lenght of the public modulo |
+| simplevariant | <code>boolean</code> | <code>false</code> | use the simple variant to compute the generator |
+
+<a name="generateRandomKeysAsync"></a>
+
+## generateRandomKeysAsync(bitLength, simplevariant) ⇒ <code>Promise</code>
+Generates a pair private, public key for the Paillier cryptosystem in asynchronous mode
+
+**Kind**: global function  
+**Returns**: <code>Promise</code> - - a promise that returns a [KeyPair](#KeyPair) if resolve  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| bitLength | <code>number</code> | <code>4096</code> | the bit lenght of the public modulo |
+| simplevariant | <code>boolean</code> | <code>false</code> | use the simple variant to compute the generator |
+
+<a name="KeyPair"></a>
+
+## KeyPair : <code>Object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| publicKey | [<code>PaillierPublicKey</code>](#PaillierPublicKey) | a Paillier's public key |
+| privateKey | [<code>PaillierPrivateKey</code>](#PaillierPrivateKey) | the associated Paillier's private key |
+
+
+* * *
