@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>paillier-bignum 1.0.3</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>A node.js implementation of the Paillier cryptosystem</h1><p>This is a node.js implementation relying on the <a href="https://github.com/justmoon/node-bignum">node-bignum</a> library by Stephan Thomas. Bignum is an arbitrary precision integral arithmetic for Node.js using OpenSSL. For a pure javascript implementation (although less efficient)  of the Paillier Cryptosystem, please visit <a href="https://github.com/juanelas/paillier-js">paillier-js</a>.</p>
+<p>The Paillier cryptosystem, named after and invented by Pascal Paillier in 1999, is a probabilistic asymmetric algorithm for public key cryptography. A notable feature of the Paillier cryptosystem is its homomorphic properties.</p>
+<h2>Homomorphic properties</h2><h3>Homomorphic addition of plaintexts</h3><p>The product of two ciphertexts will decrypt to the sum of their corresponding plaintexts,</p>
+<p><strong>D( E(m1) · E(m2) ) mod n^2 = m1 + m2 mod n</strong></p>
+<p>The product of a ciphertext with a plaintext raising g will decrypt to the sum of the corresponding plaintexts,</p>
+<p><strong>D( E(m1) · g^(m2) ) mod n^2 = m1 + m2 mod n</strong></p>
+<h3>(pseudo-)homomorphic multiplication of plaintexts</h3><p>An encrypted plaintext raised to the power of another plaintext will decrypt to the product of the two plaintexts,</p>
+<p><strong>D( E(m1)^(m2) mod n^2 ) = m1 · m2 mod n</strong>,</p>
+<p><strong>D( E(m2)^(m1) mod n^2 ) = m1 · m2 mod n</strong>.</p>
+<p>More generally, an encrypted plaintext raised to a constant k will decrypt to the product of the plaintext and the constant,</p>
+<p><strong>D( E(m1)^k mod n^2 ) = k · m1 mod n</strong>.</p>
+<p>However, given the Paillier encryptions of two messages there is no known way to compute an encryption of the product of these messages without knowing the private key.</p>
+<h2>Key generation</h2><ol>
+<li><p>Define the bit length of the modulus n, or keyLength in bits.</p>
+</li>
+<li><p>Choose two large prime numbers p and q randomly and independently of each other such that gcd( p·q, (p-1)(q-1) )=1 and n=p·q has a key length of keyLength. For instance:</p>
+<ol>
+<li><p>Generate a random prime p with a bit length of keyLength/2.</p>
+</li>
+<li><p>Generate a random prime q with a bit length of keyLength/2.</p>
+</li>
+<li><p>Repeat until satisfy: p != q and n with a bit length of keyLength.</p>
+</li>
+</ol>
+</li>
+<li><p>Compute λ = lcm(p-1, q-1) with lcm(a,b) = a·b/gcd(a, b).</p>
+</li>
+<li><p>Select generator g where in Z* de n^2. g can be computed as follows (there are other ways):</p>
+<ul>
+<li><p>Generate randoms λ and β in Z* of n (i.e. 0&lt;λ&lt;n and 0&lt;β&lt;n).</p>
+</li>
+<li><p>Compute g = ( λ·n + 1 ) β^n mod n^2</p>
+</li>
+</ul>
+</li>
+<li><p>Compute the following modular multiplicative inverse</p>
+<p> μ = ( L( g^λ mod n^2 ) )^{-1} mod n</p>
+<p> where L(x) = (x-1)/n</p>
+</li>
+</ol>
+<p>The <strong>public</strong> (encryption) <strong>key</strong> is <strong>(n, g)</strong>.</p>
+<p>The <strong>private</strong> (decryption) <strong>key</strong> is <strong>(λ, μ)</strong>.</p>
+<h2>Encryption</h2><p>Let m in Z* of n be the clear-text message,</p>
+<ol>
+<li><p>Select random r in Z* of n</p>
+</li>
+<li><p>Compute ciphertext as: <strong>c = g^m · r^n mod n^2</strong></p>
+</li>
+</ol>
+<h2>Decryption</h2><p>Let c be the ciphertext to decrypt, where c in Z* of n^2</p>
+<ol>
+<li>Compute the plaintext message as: <strong>m = L( c^λ mod n^2 ) · μ mod n</strong></li>
+</ol>
+<h2>Usage</h2><p>Every input number should be a string in base 10, an integer, or a BigNum. All the output numbers are instances of BigNum.</p>
+<pre class="prettyprint source lang-javascript"><code>// import paillier
+const paillier = require('paillier.js');
+
+// synchronous creation of a random private, public key pair for the Paillier cyrptosystem
+const {publicKey, privateKey} = paillier.generateRandomKeys(3072);
+
+// asynchronous creation of a random private, public key pair for the Paillier cyrptosystem
+let promise = paillier.generateRandomKeysAsync(3072);
+promise.then((keys) => {
+    const {publicKey, privateKey} = keys;
+});
+
+// optionally, you can create your public/private keys from known parameters
+const publicKey = new paillier.PublicKey(n, g);
+const privateKey = new paillier.PrivateKey(lambda, mu, p, q, publicKey);
+
+// encrypt m
+let c = publicKey.encrypt(m);
+
+// decrypt c
+let d = privateKey.decrypt(c);
+
+// homomorphic addition of two chipertexts (encrypted numbers)
+let c1 = publicKey.encrypt(m1);
+let c2 = publicKey.encrypt(m2);
+let encryptedSum = publicKey.addition(c1, c2);
+let sum = privateKey.decrypt(encryptedSum); // m1 + m2
+
+// multiplication by k
+let c1 = publicKey.encrypt(m1);
+let encryptedMul = publicKey.multiply(c1, k);
+let mul = privateKey.decrypt(encryptedMul); // k · m1</code></pre><p>See usage examples in <a href="example.js">example.js</a>.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="PaillierPrivateKey.html">PaillierPrivateKey</a></li><li><a href="PaillierPublicKey.html">PaillierPublicKey</a></li></ul><h3>Global</h3><ul><li><a href="global.html#generateRandomKeys">generateRandomKeys</a></li><li><a href="global.html#generateRandomKeysAsync">generateRandomKeysAsync</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 05 2018 23:02:41 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
