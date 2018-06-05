@@ -82,8 +82,14 @@ Every input number should be a string in base 10, an integer, or a BigNum. All t
 // import paillier
 const paillier = require('paillier.js');
 
-// create random keys
-const {publicKey, privateKey} = paillier.generateRandomKeys(2048);
+// synchronous creation of a random private, public key pair for the Paillier cyrptosystem
+const {publicKey, privateKey} = paillier.generateRandomKeys(3072);
+
+// asynchronous creation of a random private, public key pair for the Paillier cyrptosystem
+let promise = paillier.generateRandomKeysAsync(3072);
+promise.then((keys) => {
+    const {publicKey, privateKey} = keys;
+});
 
 // optionally, you can create your public/private keys from known parameters
 const publicKey = new paillier.PublicKey(n, g);
@@ -107,4 +113,4 @@ let encryptedMul = publicKey.multiply(c1, k);
 let mul = privateKey.decrypt(encryptedMul); // k · m1
 ```
 
-See usage examples in `example.js`.
+See usage examples in [example.js](example.js).

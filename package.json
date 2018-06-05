@@ -22,10 +22,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docs:build": "jsdoc src/paillier.js -r README.md -P package.json -d docs"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   },
   "dependencies": {

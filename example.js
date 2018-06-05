@@ -1,5 +1,5 @@
 'use strict';
-const paillier = require('./paillier');
+const paillier = require('./src/paillier');
 const bignum = require('bignum');
 
 const { publicKey, privateKey } = paillier.generateRandomKeys(1024); // Change to at least 2048 bits in production state
