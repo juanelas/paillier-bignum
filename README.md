@@ -85,11 +85,8 @@ const paillier = require('paillier.js');
 // synchronous creation of a random private, public key pair for the Paillier cyrptosystem
 const {publicKey, privateKey} = paillier.generateRandomKeys(3072);
 
-// asynchronous creation of a random private, public key pair for the Paillier cyrptosystem
-let promise = paillier.generateRandomKeysAsync(3072);
-promise.then((keys) => {
-    const {publicKey, privateKey} = keys;
-});
+// asynchronous creation of a random private, public key pair for the Paillier cyrptosystem (ONLY from async function)
+const {publicKey, privateKey} = await paillier.generateRandomKeysAsync(3072);
 
 // optionally, you can create your public/private keys from known parameters
 const publicKey = new paillier.PublicKey(n, g);

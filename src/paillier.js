@@ -55,10 +55,8 @@ const generateRandomKeys = function (bitLength = 4096, simplevariant = false) {
  * 
  * @returns {Promise} - a promise that returns a {@link KeyPair} if resolve
  */
-const generateRandomKeysAsync = function (bitLength = 4096, simplevariant = false) {
-    return new Promise(function (resolve) {
-        resolve(generateRandomKeys(bitLength, simplevariant));
-    });
+const generateRandomKeysAsync = async function (bitLength = 4096, simplevariant = false) {
+    return generateRandomKeys(bitLength, simplevariant);
 };
 
 /**
