@@ -6,7 +6,7 @@ var paillier = require('../src/paillier');
 const bitLengths = [4096, 3072, 1024];
 const timeout = 180000;
 
-describe('Testing synchronous generation of Paillier keys. You are your source of randomness. Please move your mouse and/or execute basic commands to speed up the tests.', () => {
+describe('Testing synchronous generation of Paillier keys', () => {
     for (const bitLength of bitLengths) {
         describe(`generateRandomKeys(${bitLength}) - timeout=${timeout / 1000} seg.`, () => {
             it(`should return a publicKey and a privateKey with public modulus of ${bitLength} bits`, function () {

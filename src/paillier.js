@@ -112,11 +112,13 @@ const PaillierPublicKey = class PaillierPublicKey {
      * Pseudo-homomorphic paillier multiplication
      * 
      * @param {bignum} c - a number m encrypted with this public key
-     * @param {number} k - a scalar
+     * @param {bignum | stringBase10 | number} k - either a cleartext message (number) or a scalar
      * 
      * @returns {bignum} - the ecnryption of k·m with this public key
      */
-    multiply(c, k) { // c is ciphertext. k is a number
+    multiply(c, k) { // c is ciphertext. k is either a cleartext message (number) or a scalar
+        if (typeof k === 'string')
+            k = bignum(k);
         return bignum(c).powm(k, this._n2);
     }
 };

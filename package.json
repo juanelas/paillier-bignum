@@ -26,11 +26,11 @@
     "docs:build": "jsdoc2md --template=README.hbs --files src/paillier.js > README.md"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "jsdoc-to-markdown": "^4.0.1",
-    "mocha": "^5.2.0"
+    "mocha": "^6.0.2"
   },
   "dependencies": {
-    "bignum": "^0.12.5"
+    "bignum": "^0.13.0"
   }
 }
