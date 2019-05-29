@@ -17,18 +17,19 @@
     "url": "https://github.com/juanelas"
   },
   "repository": "github:juanelas/paillier-bignum",
-  "main": "./paillier.js",
+  "main": "./src/paillier.js",
   "directories": {
+    "src": "src",
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
-    "docs:build": "jsdoc2md --template=README.hbs --files src/paillier.js > README.md"
+    "test": "mocha --timeout 600000",
+    "build:docs": "jsdoc2md --template=README.hbs --files src/paillier.js > README.md"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "jsdoc-to-markdown": "^4.0.1",
-    "mocha": "^6.0.2"
+    "jsdoc-to-markdown": "^5.0.0",
+    "mocha": "^6.1.4"
   },
   "dependencies": {
     "bignum": "^0.13.0"

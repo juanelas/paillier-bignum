@@ -20,10 +20,10 @@ const generateRandomKeys = function (bitLength = 4096, simplevariant = false) {
     let p, q, n, phi, n2, g, lambda, mu;
     // if p and q are bitLength/2 long ->  2**(bitLength - 2) <= n < 2**(bitLenght) 
     do {
-        p = bignum.prime(bitLength / 2);
-        q = bignum.prime(bitLength / 2);
+        p = bignum.prime(Math.floor(bitLength / 2));
+        q = bignum.prime(Math.floor(bitLength / 2));
         n = p.mul(q);
-    } while (q.cmp(p) == 0 || n.bitLength() != bitLength);
+    } while (n.bitLength() !== bitLength);
 
     phi = p.sub(1).mul(q.sub(1));
 
