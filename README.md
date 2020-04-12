@@ -116,7 +116,7 @@ See usage examples in [example.js](example.js).
 <dt><a href="#generateRandomKeys">generateRandomKeys(bitLength, simplevariant)</a> ⇒ <code><a href="#KeyPair">KeyPair</a></code></dt>
 <dd><p>Generates a pair private, public key for the Paillier cryptosystem in synchronous mode</p>
 </dd>
-<dt><a href="#generateRandomKeysAsync">generateRandomKeysAsync(bitLength, simplevariant)</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#generateRandomKeysAsync">generateRandomKeysAsync(bitLength, simplevariant)</a> ⇒ <code><a href="#KeyPair">Promise.&lt;KeyPair&gt;</a></code></dt>
 <dd><p>Generates a pair private, public key for the Paillier cryptosystem in asynchronous mode</p>
 </dd>
 </dl>
@@ -150,8 +150,8 @@ Creates an instance of class PaillierPublicKey
 
 | Param | Type | Description |
 | --- | --- | --- |
-| n | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | the public modulo |
-| g | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | the public generator |
+| n | <code>bignum</code> \| <code>string</code> \| <code>number</code> | the public modulo |
+| g | <code>bignum</code> \| <code>string</code> \| <code>number</code> | the public generator |
 
 <a name="PaillierPublicKey+bitLength"></a>
 
@@ -170,7 +170,7 @@ Paillier public-key encryption
 
 | Param | Type | Description |
 | --- | --- | --- |
-| m | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | a cleartext number |
+| m | <code>bignum</code> \| <code>string</code> \| <code>number</code> | a cleartext number |
 
 <a name="PaillierPublicKey+addition"></a>
 
@@ -195,7 +195,7 @@ Pseudo-homomorphic paillier multiplication
 | Param | Type | Description |
 | --- | --- | --- |
 | c | <code>bignum</code> | a number m encrypted with this public key |
-| k | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | either a cleartext message (number) or a scalar |
+| k | <code>bignum</code> \| <code>string</code> \| <code>number</code> | either a cleartext message (number) or a scalar |
 
 <a name="PaillierPrivateKey"></a>
 
@@ -205,24 +205,24 @@ Class for Paillier private keys.
 **Kind**: global class  
 
 * [PaillierPrivateKey](#PaillierPrivateKey)
-    * [new PaillierPrivateKey(lambda, mu, p, q, publicKey)](#new_PaillierPrivateKey_new)
+    * [new PaillierPrivateKey(lambda, mu, publicKey, [p], [q])](#new_PaillierPrivateKey_new)
     * [.bitLength](#PaillierPrivateKey+bitLength) ⇒ <code>number</code>
     * [.n](#PaillierPrivateKey+n) ⇒ <code>bignum</code>
     * [.decrypt(c)](#PaillierPrivateKey+decrypt) ⇒ <code>bignum</code>
 
 <a name="new_PaillierPrivateKey_new"></a>
 
-### new PaillierPrivateKey(lambda, mu, p, q, publicKey)
+### new PaillierPrivateKey(lambda, mu, publicKey, [p], [q])
 Creates an instance of class PaillierPrivateKey
 
 
-| Param | Type | Description |
-| --- | --- | --- |
-| lambda | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> |  |
-| mu | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> |  |
-| p | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | a big prime |
-| q | <code>bignum</code> \| <code>stringBase10</code> \| <code>number</code> | a big prime |
-| publicKey | [<code>PaillierPublicKey</code>](#PaillierPublicKey) |  |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| lambda | <code>bignum</code> \| <code>string</code> \| <code>number</code> |  |  |
+| mu | <code>bignum</code> \| <code>string</code> \| <code>number</code> |  |  |
+| publicKey | [<code>PaillierPublicKey</code>](#PaillierPublicKey) |  |  |
+| [p] | <code>bignum</code> \| <code>string</code> \| <code>number</code> | <code></code> | a big prime |
+| [q] | <code>bignum</code> \| <code>string</code> \| <code>number</code> | <code></code> | a big prime |
 
 <a name="PaillierPrivateKey+bitLength"></a>
 
@@ -248,7 +248,7 @@ Paillier private-key decryption
 
 | Param | Type | Description |
 | --- | --- | --- |
-| c | <code>bignum</code> \| <code>stringBase10</code> | a (big) number encrypted with the public key |
+| c | <code>bignum</code> \| <code>string</code> | a (big) number encrypted with the public key |
 
 <a name="generateRandomKeys"></a>
 
@@ -265,11 +265,11 @@ Generates a pair private, public key for the Paillier cryptosystem in synchronou
 
 <a name="generateRandomKeysAsync"></a>
 
-## generateRandomKeysAsync(bitLength, simplevariant) ⇒ <code>Promise</code>
+## generateRandomKeysAsync(bitLength, simplevariant) ⇒ [<code>Promise.&lt;KeyPair&gt;</code>](#KeyPair)
 Generates a pair private, public key for the Paillier cryptosystem in asynchronous mode
 
 **Kind**: global function  
-**Returns**: <code>Promise</code> - - a promise that returns a [KeyPair](#KeyPair) if resolve  
+**Returns**: [<code>Promise.&lt;KeyPair&gt;</code>](#KeyPair) - - a promise that returns a [KeyPair](#KeyPair) if resolve  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
