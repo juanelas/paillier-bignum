@@ -190,7 +190,7 @@ Homomorphic addition
 Pseudo-homomorphic paillier multiplication
 
 **Kind**: instance method of [<code>PaillierPublicKey</code>](#PaillierPublicKey)  
-**Returns**: <code>bignum</code> - - the ecnryption of k·m with this public key  
+**Returns**: <code>bignum</code> - - the encryption of k·m with this public key  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -260,7 +260,7 @@ Generates a pair private, public key for the Paillier cryptosystem in synchronou
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| bitLength | <code>number</code> | <code>4096</code> | the bit lenght of the public modulo |
+| bitLength | <code>number</code> | <code>4096</code> | the bit length of the public modulo |
 | simplevariant | <code>boolean</code> | <code>false</code> | use the simple variant to compute the generator |
 
 <a name="generateRandomKeysAsync"></a>
@@ -273,7 +273,7 @@ Generates a pair private, public key for the Paillier cryptosystem in asynchrono
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| bitLength | <code>number</code> | <code>4096</code> | the bit lenght of the public modulo |
+| bitLength | <code>number</code> | <code>4096</code> | the bit length of the public modulo |
 | simplevariant | <code>boolean</code> | <code>false</code> | use the simple variant to compute the generator |
 
 <a name="KeyPair"></a>
